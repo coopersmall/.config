@@ -18,8 +18,7 @@ You will need to:
 Clone the repo
 
 ```sh
-cd ~
-git clone https://github.com/coopersmall/.config.git
+cd ~ && git clone https://github.com/coopersmall/.config.git
 ```
 
 **Step 2**
@@ -27,8 +26,7 @@ git clone https://github.com/coopersmall/.config.git
 Install the dependencies
 
 ```sh
-cd ~/.config
-make deps
+cd ~/.config && make deps
 ```
 
 ## Packages
