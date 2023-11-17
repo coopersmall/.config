@@ -116,4 +116,22 @@ then
     brew install neovim
 fi
 
+if ! command -v zellij &> /dev/null
+then
+    echo "Zellij not found. Installing..."
+    brew install zellij
+fi
+
+if ! command -v alacritty &> /dev/null
+then
+    echo "Alacritty not found. Installing..."
+    brew install --cask alacritty
+fi
+
+if ! command -v neofetch &> /dev/null
+then 
+    echo "Neofetch not found. Installing..."
+    brew install neofetch
+fi
+
 echo "All dependencies installed!"
