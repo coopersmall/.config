@@ -1,0 +1,32 @@
+[kubernetes]
+format = 'on [ﴱ $context \($namespace\)](dimmed green) '
+disabled = true
+
+[git_branch]
+symbol = " "
+truncation_symbol = ""
+ignore_branches = ["master", "main"]
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = " "
+
+[git_status]
+disabled = true
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold blue"
+symbol = " "
+
+[nodejs]
+format = "via [$symbol$version](bold green) "
+
+[golang]
+format = "via [ﳑ $version](bold cyan) "
+
+[docker_context]
+format = "via [ $context](blue bold)"
+
+[package]
+format = "via [ $version](208 bold) "
