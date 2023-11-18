@@ -50,7 +50,7 @@ shell:
     args:
         - -i
         - -c
-        - "/bin/zsh ~/scripts/alacritty-autostart.sh"
+        - "/bin/zsh ~/.config/scripts/alacritty-autostart.sh"
 
 key_bindings:
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
