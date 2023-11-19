@@ -1,6 +1,5 @@
 #!/bin/bash
 
-PACKAGE_MANAGER=""
 LIST_COMMAND=""
 INSTALL_COMMAND=""
 
@@ -12,20 +11,21 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "MacOS detected!"
 
     PACKAGE_MANAGER="brew"
-    LIST_COMMAND="$PACKAGE_MANAGER list"
-    INSTALL_COMMAND="$PACKAGE_MANAGER install"
 
-    if ! command -v $INSTALL_COMMAND &> /dev/null
+    if ! command -v $PACKAGE_MANAGER &> /dev/null
     then
         echo "Brew not found. Installing..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "Brew found!"
     fi
+
+    LIST_COMMAND="$PACKAGE_MANAGER list"
+    INSTALL_COMMAND="$PACKAGE_MANAGER install"
 fi
 
-if [[ $PACKAGE_MANAGER == "" ]]; then
-    echo "OS not supported. Exiting..."
+if [ -z "$LIST_COMMAND" ] || [ -z "$INSTALL_COMMAND" ]; then
+    echo "Unsupported OS detected!"
     exit 1
 fi
 
