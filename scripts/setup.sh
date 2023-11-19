@@ -100,19 +100,25 @@ echo
 ZSHRC_PATH="$HOME/.zshrc"
 SCRIPT_ZSHRC=".zshrc"
 
+echo "Checking if zsh is default shell..."
 if [[ $SHELL != "/bin/zsh" ]]; then
     echo "Setting zsh as default shell..."
     chsh -s $(which zsh)
+else
+    echo "zsh is already the default shell!"
 fi
 
 echo "Checking if .zshrc exists..."
 if [ ! -f "$ZSHRC_PATH" ]; then
     echo "Creating .zshrc..."
     cp "$SCRIPT_ZSHRC" "$ZSHRC_PATH"
+else
+    echo ".zshrc exists!"
 fi
 
 echo "Updating .zshrc..."
 cat "$SCRIPT_ZSHRC" >> "$ZSHRC_PATH"
+echo ".zshrc updated!"
 
 echo
 echo "All done! Please restart your terminal to apply changes."
