@@ -1,137 +1,166 @@
 #!/bin/bash
 
-# Install Homebrew
-if ! command -v brew &> /dev/null
-then
-    echo "Homebrew not found. Installing..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+PACKAGE_MANAGER=""
+LIST_COMMAND=""
+INSTALL_COMMAND=""
+
+ZSHRC_PATH="$HOME/.zshrc"
+SCRIPT_ZSHRC=".zshrc"
+
+echo "Running setup script..."
+echo
+
+echo "Setting up environment..."
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "MacOS detected!"
+
+    PACKAGE_MANAGER="brew"
+    LIST_COMMAND="$PACKAGE_MANAGER list"
+    INSTALL_COMMAND="$PACKAGE_MANAGER install"
+
+    if ! command -v $INSTALL_COMMAND &> /dev/null
+    then
+        echo "Brew not found. Installing..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "Brew found!"
+    fi
 fi
 
-# Install dependencies
-if ! command -v python3 &> /dev/null
-then
-    echo "Python3 not found. Installing..."
-    brew install python3
+if [[ $PACKAGE_MANAGER == "" ]]; then
+    echo "OS not supported. Exiting..."
+    exit 1
 fi
 
-if ! command -v node &> /dev/null
-then
-    echo "Node not found. Installing..."
-    brew install node
+echo "Environment setup complete!"
+
+echo
+echo "Installing packages..."
+echo
+
+install_pkg() {
+    if ! $LIST_COMMAND $1 &> /dev/null
+    then
+        echo "Installing $1..."
+        $INSTALL_COMMAND $1 >> /dev/null
+        echo "$1 installed!"
+    else
+        echo "$1 found!"
+    fi
+}
+
+echo "Checking if python is installed..."
+install_pkg python3
+
+echo "Checking if node is installed..."
+install_pkg node
+
+echo "Checking if npm is installed..."
+install_pkg npm
+
+echo "Checking if yarn is installed..."
+install_pkg yarn
+
+echo "Checking if go is installed..."
+install_pkg go
+
+echo "Checking if rust is installed..."
+install_pkg rust
+
+echo "Checking if docker is installed..."
+install_pkg docker
+
+echo "Checking if docker-compose is installed..."
+install_pkg docker-compose
+
+echo "Checking if kubectl is installed..."
+install_pkg kubectl
+
+echo "Checking if git is installed..."
+install_pkg git
+
+echo "Checking if curl is installed..."
+install_pkg curl
+
+echo "Checking if bat is installed..."
+install_pkg bat
+
+echo "Checking if exa is installed..."
+install_pkg exa
+
+echo "Checking if fd is installed..."
+install_pkg fd
+
+echo "Checking if fzf is installed..."
+install_pkg fzf
+
+echo "Checking if procs is installed..."
+install_pkg procs
+
+echo "Checking if ripgrep is installed..."
+install_pkg ripgrep
+
+echo "Checking if tldr is installed..."
+install_pkg tldr
+
+echo "Checking if htop is installed..."
+install_pkg htop
+
+echo "Checking if neovim is installed..."
+install_pkg neovim
+
+echo "Checking if zellij is installed..."
+install_pkg zellij
+
+echo "Checking if alacritty is installed..."
+install_pkg --cask alacritty
+
+echo
+echo "Setting up directories..."
+echo
+
+create_dir() {
+    if [ ! -d "$1" ]
+    then
+        echo "Creating $1..."
+        mkdir "$1"
+    fi
+}
+
+echo "Checking if scripts directory exists..."
+create_dir "$HOME/scripts"
+
+echo "Checking if repos directory exists..."
+create_dir "$HOME/repos"
+
+echo "Checking if projects directory exists..."
+create_dir "$HOME/projects"
+
+echo
+echo "Setting up zsh..."
+echo
+
+echo "Checking if zsh is installed..."
+install_pkg zsh
+
+echo "Checking if zsh-syntax-highlighting is installed..."
+install_pkg zsh-syntax-highlighting
+
+
+if [[ $SHELL != "/bin/zsh" ]]; then
+    echo "Setting zsh as default shell..."
+    chsh -s $(which zsh)
 fi
 
-if ! command -v yarn &> /dev/null
-then
-    echo "Yarn not found. Installing..."
-    brew install yarn
+echo "Checking if .zshrc exists..."
+if [ ! -f "$ZSHRC_PATH" ]; then
+    echo "Creating .zshrc..."
+    cp "$SCRIPT_ZSHRC" "$ZSHRC_PATH"
 fi
 
-if ! command -v go &> /dev/null
-then
-    echo "Go not found. Installing..."
-    brew install go
-fi
+echo "Updating .zshrc..."
+cat "$SCRIPT_ZSHRC" >> "$ZSHRC_PATH"
 
-if ! command -v docker &> /dev/null
-then
-    echo "Docker not found. Installing..."
-    brew install docker
-fi
-
-if ! command -v docker-compose &> /dev/null
-then
-    echo "Docker-compose not found. Installing..."
-    brew install docker-compose
-fi
-
-if ! command -v kubectl &> /dev/null
-then
-    echo "Kubectl not found. Installing..."
-    brew install kubectl
-fi
-
-if ! command -v git &> /dev/null
-then
-    echo "Git not found. Installing..."
-    brew install git
-fi
-
-if ! command -v curl &> /dev/null
-then
-    echo "Curl not found. Installing..."
-    brew install curl
-fi
-
-if ! command -v bat &> /dev/null
-then
-    echo "Bat not found. Installing..."
-    brew install bat
-fi
-
-if ! command -v exa &> /dev/null
-then
-    echo "Exa not found. Installing..."
-    brew install exa
-fi
-
-if ! command -v fd &> /dev/null
-then
-    echo "Fd not found. Installing..."
-    brew install fd
-fi
-
-if ! command -v fzf &> /dev/null
-then
-    echo "Fzf not found. Installing..."
-    brew install fzf
-fi
-
-if ! command -v procs &> /dev/null
-then
-    echo "Procs not found. Installing..."
-    brew install procs
-fi
-
-if ! command -v rg &> /dev/null
-then
-    echo "Ripgrep not found. Installing..."
-    brew install ripgrep
-fi
-
-if ! command -v tldr &> /dev/null
-then
-    echo "Tldr not found. Installing..."
-    brew install tldr
-fi
-
-if ! command -v htop &> /dev/null
-then
-    echo "Htop not found. Installing..."
-    brew install htop
-fi
-
-if ! command -v nvim &> /dev/null
-then
-    echo "Neovim not found. Installing..."
-    brew install neovim
-fi
-
-if ! command -v zellij &> /dev/null
-then
-    echo "Zellij not found. Installing..."
-    brew install zellij
-fi
-
-if ! command -v alacritty &> /dev/null
-then
-    echo "Alacritty not found. Installing..."
-    brew install --cask alacritty
-fi
-
-if ! command -v neofetch &> /dev/null
-then 
-    echo "Neofetch not found. Installing..."
-    brew install neofetch
-fi
-
-echo "All dependencies installed!"
+echo
+echo "All done! Please restart your terminal to apply changes."
+exit 0

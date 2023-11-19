@@ -58,3 +58,4 @@ The setup script will install the following packages
 | [Alacritty](https://github.com/alacritty/alacritty)           | A cross-platform, GPU-accelerated terminal emulator.  |
 | [Neofetch](https://github.com/dylanaraps/neofetch)            | A command-line utility for displaying system information. |
 
+Many of the packages are for [modern unix](https://github.com/ibraheemdev/modern-unix)
