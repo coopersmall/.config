@@ -4,9 +4,6 @@ PACKAGE_MANAGER=""
 LIST_COMMAND=""
 INSTALL_COMMAND=""
 
-ZSHRC_PATH="$HOME/.zshrc"
-SCRIPT_ZSHRC=".zshrc"
-
 echo "Running setup script..."
 echo
 
@@ -140,12 +137,14 @@ echo
 echo "Setting up zsh..."
 echo
 
+ZSHRC_PATH="$HOME/.zshrc"
+SCRIPT_ZSHRC=".zshrc"
+
 echo "Checking if zsh is installed..."
 install_pkg zsh
 
 echo "Checking if zsh-syntax-highlighting is installed..."
 install_pkg zsh-syntax-highlighting
-
 
 if [[ $SHELL != "/bin/zsh" ]]; then
     echo "Setting zsh as default shell..."
