@@ -69,6 +69,7 @@ install_pkg htop
 install_pkg neovim
 install_pkg zellij
 install_pkg --cask alacritty
+install_pkg zoxide
 install_pkg zsh
 install_pkg zsh-syntax-highlighting
 

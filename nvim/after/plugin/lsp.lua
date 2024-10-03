@@ -42,7 +42,6 @@ lsp.format_on_save({
         ['lua_ls'] = { 'lua' },
         ['gopls'] = { 'go' },
         ['rust_analyzer'] = { 'rust' },
-        ['tsserver'] = { 'typescript', 'js' },
         ['buf'] = { 'proto' },
         ['html'] = { 'html' },
         ['cssls'] = { 'css', 'scss', 'less' },
@@ -50,10 +49,18 @@ lsp.format_on_save({
         ['sqlls'] = { 'sql' },
         ['dockerls'] = { 'dockerfile' },
         ['yamlfmt'] = { 'yaml' },
+        ['black'] = { 'py' },
     }
 })
 
+require("lsp-format").setup {
+    typescript = {
+        tab_width = 2,
+    },
+}
+
 local nvim_lsp = require('lspconfig')
+
 nvim_lsp.lua_ls.setup({
     on_attach = function(client, bufnr)
         ih.on_attach(client, bufnr)
@@ -65,6 +72,14 @@ nvim_lsp.lua_ls.setup({
             },
         },
     },
+})
+
+nvim_lsp.tsserver.setup({
+    on_attach = function(client, bufnr)
+        vim.opt_local.tabstop = 2
+        -- execute make format on save
+        vim.cmd('autocmd BufWritePre <buffer> lua vim.cmd("Format")')
+    end,
 })
 
 -- Specify an autocommand to switch to helm_ls for Helm YAML files

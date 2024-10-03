@@ -236,4 +236,10 @@ require('lazy').setup({
 
     -- Markers
     'chentoast/marks.nvim',
+
+    -- Show keybindings
+    "L3MON4D3/LuaSnip",
+
+    -- Format code
+    "lukas-reineke/lsp-format.nvim",
 })
