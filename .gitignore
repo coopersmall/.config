@@ -1,1 +1,17 @@
 github-copilot/
+
+# Credentials and secrets
+ralph/
+graphite/
+hcp/
+gcloud/
+opencode/secrets/
+op/
+configstore/
+
+# Tool state (no secrets, but not useful to track)
+direnv/
+fish/
+git/
+uv/
+nvim-bak/
